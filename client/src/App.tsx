@@ -1,26 +1,15 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import './App.css';
+import { useDynamicContext, DynamicWidget } from '@dynamic-labs/sdk-react-core';
 
-function App() {
-  const [message, setMessage] = useState('');
+export default function App() {
+  const { user, isAuthenticated } = useDynamicContext();
 
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/test', { withCredentials: true })
-      .then((response) => {
-        setMessage(response.data.message);
-      })
-      .catch((error) => {
-        console.error('Error fetching from backend:', error);
-      });
-  }, []);
+  console.log('Authenticated:', isAuthenticated);
+  console.log('User:', user);
 
   return (
     <div>
-      <h1>Frontend is working!</h1>
-      <h2>{message ? `Backend says: ${message}` : 'Loading backend...'}</h2>
+      <h1>Dynamic Demo</h1>
+      <DynamicWidget />
     </div>
   );
 }
-
-export default App;
