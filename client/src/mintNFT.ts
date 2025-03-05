@@ -1,8 +1,11 @@
-import { createWalletClient, http, encodeFunctionData } from 'viem';
+import { encodeFunctionData, WalletClient } from 'viem';
 import { polygonAmoy } from './chains';
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from './constants';
 
-export async function mintNFT(userAddress: `0x${string}`, walletClient: any) {
+export async function mintNFT(
+  userAddress: `0x${string}`,
+  walletClient: WalletClient
+) {
   try {
     const data = encodeFunctionData({
       abi: CONTRACT_ABI,
@@ -11,8 +14,8 @@ export async function mintNFT(userAddress: `0x${string}`, walletClient: any) {
     });
 
     const txHash = await walletClient.sendTransaction({
-      chain: polygonAmoy,
       account: userAddress,
+      chain: polygonAmoy,
       to: CONTRACT_ADDRESS,
       data,
     });
