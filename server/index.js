@@ -1,11 +1,14 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import jwt from 'jsonwebtoken';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const jwt = require('jsonwebtoken');
 
 const app = express();
+
 app.use(cors({
-  origin: 'http://localhost:5173', // frontend
+  origin: 'http://localhost:5173', // Frontend origin
   credentials: true,
 }));
 app.use(express.json());
